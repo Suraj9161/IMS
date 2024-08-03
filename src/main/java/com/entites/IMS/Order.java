@@ -3,6 +3,7 @@ package com.entites.IMS;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +12,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "customer_order")
@@ -19,7 +22,10 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private Date date;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "order_date")
+	private Date orderdate;
 	
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
@@ -33,9 +39,9 @@ public class Order {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Order(Date date, Customer customer, List<OrderItem> orderItems) {
+	public Order(Date orderdate, Customer customer, List<OrderItem> orderItems) {
 		super();
-		this.date = date;
+		this.orderdate = orderdate;
 		this.customer = customer;
 		this.orderItems = orderItems;
 	}
@@ -48,12 +54,12 @@ public class Order {
 		this.id = id;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getorderdate() {
+		return orderdate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setorderdate(Date orderdate) {
+		this.orderdate = orderdate;
 	}
 
 	public Customer getCustomer() {
@@ -74,7 +80,7 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", date=" + date + ", customer=" + customer + ", orderItems=" + orderItems + "]";
+		return "Order [id=" + id + ", date=" + orderdate + ", customer=" + customer + ", orderItems=" + orderItems + "]";
 	}
 	
 	
